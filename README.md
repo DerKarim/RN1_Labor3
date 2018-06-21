@@ -37,6 +37,7 @@ Da wir aber noch Tunneln, 1460 - 24 Bytes [Tunneling] = 1436 Bytes
 Der Router sendet eine ICMP Nachricht, dass eine Fragmentierung notwendig ist.
 
 ```
+No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
 183	19.314823	134.108.11.254	134.108.8.36	ICMP	70	Destination unreachable (Fragmentation needed)	0.000623
 ```
 
@@ -51,6 +52,7 @@ und einmal mit 24 Bytes, wodurch unnötig Datenverkehr produziert wird.
 Mit Fragmentierung:
 
 ```
+No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
 183	19.314823	134.108.11.254	134.108.8.36	ICMP	70	Destination unreachable (Fragmentation needed)	0.000623
 184	19.314851	134.108.8.36	134.108.190.10	TCP	1490	[TCP Retransmission] 46962 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=1424 TSval=11507963 TSecr=2383618662	0.000028
 185	19.314861	134.108.8.36	134.108.190.10	TCP	90	[TCP Retransmission] 46962 → 9001 [ACK] Seq=1425 Ack=1 Win=2920 Len=24 TSval=11507963 TSecr=2383618662	0.000010
@@ -70,6 +72,7 @@ Mit Fragmentierung:
 Ohne Fragmentierung:
 
 ```
+No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
 232	19.318494	134.108.8.36	134.108.190.10	TCP	1490	46962 → 9001 [PSH, ACK] Seq=15905 Ack=1 Win=2920 Len=1424 TSval=11507966 TSecr=2383627175	0.000012
 237	19.319163	134.108.190.10	134.108.8.36	TCP	66	9001 → 46962 [ACK] Seq=1 Ack=17329 Win=2896 Len=0 TSval=2383627176 TSecr=11507966	0.000103
 238	19.319180	134.108.8.36	134.108.190.10	TCP	1490	46962 → 9001 [ACK] Seq=17329 Ack=1 Win=2920 Len=1424 TSval=11507967 TSecr=2383627176	0.000017
@@ -87,6 +90,7 @@ Da der Client die Verbindung vorzeitig beendet hat, haben wir einen half-closed 
 Der Client sendet [FIN, ACK] und bekommt immernoch Daten, bis der Server ein [ACK] sendet und darauf ein weiteres [FIN, ACK] , [ACK] zum beenden vom Server bekommt.
 
 ```
+No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
 127	10.534906	134.108.8.37	134.108.8.36	TCP	74	55002 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=11309456 TSecr=0 WS=1	0.245141
 128	10.534950	134.108.8.36	134.108.8.37	TCP	74	9001 → 55002 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=12943535 TSecr=11309456 WS=1	0.000044
 129	10.535157	134.108.8.37	134.108.8.36	TCP	66	55002 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=11309456 TSecr=12943535	0.000207
@@ -126,13 +130,13 @@ die Port Nummern übertragen werden und anschließend die Daten.
 
 ```
 No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
-1 0.000000       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd65) [Reassembled in #3] 0.000000
-2 0.000009       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd65) [Reassembled in #3] 0.000009
-3 0.000012       134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000003
-4 0.000032       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd66) [Reassembled in #6] 0.000020
-5 0.000036       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd66) [Reassembled in #6] 0.000004
-6 0.000038       134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000002
-7 8.320396       134.108.8.37          134.108.8.36          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=35ff) [Reassembled in #9] 8.320358
-8 8.320413       134.108.8.37          134.108.8.36          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=35ff) [Reassembled in #9] 0.000017
-9 8.320417       134.108.8.37          134.108.8.36          UDP      82     9006 → 9005 Len=3000                                          0.000004
+1	 0.000000       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd65) [Reassembled in #3] 0.000000
+2	 0.000009       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd65) [Reassembled in #3] 0.000009
+3	 0.000012       134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000003
+4	 0.000032       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd66) [Reassembled in #6] 0.000020
+5	 0.000036       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd66) [Reassembled in #6] 0.000004
+6	 0.000038       134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000002
+7	 8.320396       134.108.8.37          134.108.8.36          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=35ff) [Reassembled in #9] 8.320358
+8	 8.320413       134.108.8.37          134.108.8.36          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=35ff) [Reassembled in #9] 0.000017
+9	 8.320417       134.108.8.37          134.108.8.36          UDP      82     9006 → 9005 Len=3000                                          0.000004
 ```
