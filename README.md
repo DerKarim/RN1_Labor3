@@ -65,12 +65,85 @@ Daran, dass Client B erst behandelt wird nachdem Client A die Verbindung beendet
 **Wo blockiert der Server?**  
 Wird durch die Funktion listen() blockiert, da nur eine Verbindung zugelassen ist.
 
-Three Way Handshake:
+Three Way Handshake Client A:
 ```
 No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
 41    0.000000	134.108.8.36	134.108.8.37	TCP	74	48072 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=8168450 TSecr=0 WS=1
 42    0.000177	134.108.8.37	134.108.8.36	TCP	74	9001 → 48072 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=6534371 TSecr=8168450 WS=1
 43    0.000023	134.108.8.36	134.108.8.37	TCP	66	48072 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=8168450 TSecr=6534371
+```
+
+Dynamische Buffer Erweiterung Client A:
+```
+43    0.000023       134.108.8.36          134.108.8.37          TCP      66     48072 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=8168450 TSecr=6534371
+76    4.598437       134.108.8.36          134.108.8.37          TCP      1514   48072 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=1448 TSval=8173049 TSecr=6534371
+77    0.000019       134.108.8.36          134.108.8.37          TCP      1514   [TCP Window Full] 48072 → 9001 [PSH, ACK] Seq=1449 Ack=1 Win=2920 Len=1448 TSval=8173049 TSecr=6534371
+78    0.000201       134.108.8.37          134.108.8.36          TCP      66     9001 → 48072 [ACK] Seq=1 Ack=2897 Win=2896 Len=0 TSval=6538970 TSecr=8173049
+79    0.000033       134.108.8.36          134.108.8.37          TCP      1514   48072 → 9001 [ACK] Seq=2897 Ack=1 Win=2920 Len=1448 TSval=8173049 TSecr=6538970
+80    0.000010       134.108.8.36          134.108.8.37          TCP      1514   [TCP Window Full] 48072 → 9001 [PSH, ACK] Seq=4345 Ack=1 Win=2920 Len=1448 TSval=8173049 TSecr=6538970
+81    0.000188       134.108.8.37          134.108.8.36          TCP      66     9001 → 48072 [ACK] Seq=1 Ack=5793 Win=2896 Len=0 TSval=6538970 TSecr=8173049
+82    0.000028       134.108.8.36          134.108.8.37          TCP      1514   48072 → 9001 [ACK] Seq=5793 Ack=1 Win=2920 Len=1448 TSval=8173049 TSecr=6538970
+83    0.000010       134.108.8.36          134.108.8.37          TCP      1514   [TCP Window Full] 48072 → 9001 [PSH, ACK] Seq=7241 Ack=1 Win=2920 Len=1448 TSval=8173049 TSecr=6538970
+84    0.000220       134.108.8.37          134.108.8.36          TCP      66     9001 → 48072 [ACK] Seq=1 Ack=8689 Win=2896 Len=0 TSval=6538970 TSecr=8173049
+85    0.000028       134.108.8.36          134.108.8.37          TCP      1514   48072 → 9001 [ACK] Seq=8689 Ack=1 Win=2920 Len=1448 TSval=8173049 TSecr=6538970
+86    0.000010       134.108.8.36          134.108.8.37          TCP      1514   [TCP Window Full] 48072 → 9001 [PSH, ACK] Seq=10137 Ack=1 Win=2920 Len=1448 TSval=8173049 TSecr=6538970
+87    0.000227       134.108.8.37          134.108.8.36          TCP      66     9001 → 48072 [ACK] Seq=1 Ack=11585 Win=2896 Len=0 TSval=6538971 TSecr=8173049
+88    0.000027       134.108.8.36          134.108.8.37          TCP      1514   48072 → 9001 [ACK] Seq=11585 Ack=1 Win=2920 Len=1448 TSval=8173050 TSecr=6538971
+89    0.000009       134.108.8.36          134.108.8.37          TCP      1514   [TCP Window Full] 48072 → 9001 [PSH, ACK] Seq=13033 Ack=1 Win=2920 Len=1448 TSval=8173050 TSecr=6538971
+90    0.000171       134.108.8.37          134.108.8.36          TCP      66     9001 → 48072 [ACK] Seq=1 Ack=14481 Win=2896 Len=0 TSval=6538971 TSecr=8173050
+91    0.000028       134.108.8.36          134.108.8.37          TCP      1514   48072 → 9001 [ACK] Seq=14481 Ack=1 Win=2920 Len=1448 TSval=8173050 TSecr=6538971
+92    0.000009       134.108.8.36          134.108.8.37          TCP      1514   [TCP Window Full] 48072 → 9001 [PSH, ACK] Seq=15929 Ack=1 Win=2920 Len=1448 TSval=8173050 TSecr=6538971
+```
+
+Client B verbindet sich:
+```
+151   3.766654	134.108.8.36	134.108.8.37	TCP	74	48074 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=8176819 TSecr=0 WS=1
+152   0.000191	134.108.8.37	134.108.8.36	TCP	74	9001 → 48074 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=6542740 TSecr=8176819 WS=1
+153   0.000038	134.108.8.36	134.108.8.37	TCP	66	48074 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=8176819 TSecr=6542740
+```
+
+Dynamische Buffer Erweiterung Client 2:
+```
+156   0.000017       134.108.8.36          134.108.8.37          TCP      1514   [TCP Window Full] 48074 → 9001 [PSH, ACK] Seq=1449 Ack=1 Win=2920 Len=1448 TSval=8177457 TSecr=6542740
+157   0.000187       134.108.8.37          134.108.8.36          TCP      66     9001 → 48074 [ACK] Seq=1 Ack=2897 Win=2896 Len=0 TSval=6543378 TSecr=8177457
+158   0.000033       134.108.8.36          134.108.8.37          TCP      1514   48074 → 9001 [ACK] Seq=2897 Ack=1 Win=2920 Len=1448 TSval=8177457 TSecr=6543378
+159   0.000009       134.108.8.36          134.108.8.37          TCP      1514   [TCP Window Full] 48074 → 9001 [PSH, ACK] Seq=4345 Ack=1 Win=2920 Len=1448 TSval=8177457 TSecr=6543378
+160   0.000224       134.108.8.37          134.108.8.36          TCP      66     9001 → 48074 [ACK] Seq=1 Ack=5793 Win=2896 Len=0 TSval=6543378 TSecr=8177457
+161   0.000028       134.108.8.36          134.108.8.37          TCP      1514   48074 → 9001 [ACK] Seq=5793 Ack=1 Win=2920 Len=1448 TSval=8177457 TSecr=6543378
+162   0.000010       134.108.8.36          134.108.8.37          TCP      1514   [TCP Window Full] 48074 → 9001 [PSH, ACK] Seq=7241 Ack=1 Win=2920 Len=1448 TSval=8177457 TSecr=6543378
+163   0.000190       134.108.8.37          134.108.8.36          TCP      66     9001 → 48074 [ACK] Seq=1 Ack=8689 Win=2896 Len=0 TSval=6543378 TSecr=8177457
+164   0.000028       134.108.8.36          134.108.8.37          TCP      1514   48074 → 9001 [ACK] Seq=8689 Ack=1 Win=2920 Len=1448 TSval=8177457 TSecr=6543378
+165   0.000009       134.108.8.36          134.108.8.37          TCP      1514   [TCP Window Full] 48074 → 9001 [PSH, ACK] Seq=10137 Ack=1 Win=2920 Len=1448 TSval=8177457 TSecr=6543378
+166   0.000197       134.108.8.37          134.108.8.36          TCP      66     9001 → 48074 [ACK] Seq=1 Ack=11585 Win=2896 Len=0 TSval=6543378 TSecr=8177457
+167   0.000026       134.108.8.36          134.108.8.37          TCP      1514   48074 → 9001 [ACK] Seq=11585 Ack=1 Win=2920 Len=1448 TSval=8177458 TSecr=6543378
+```
+
+Daten von Client A empfangen und Verbindung beenden:
+```
+275   0.000262       134.108.8.37          134.108.8.36          TCP      2962   9001 → 48072 [PSH, ACK] Seq=8689 Ack=60001 Win=2896 Len=2896 TSval=6553094 TSecr=8187173
+276   0.000027       134.108.8.36          134.108.8.37          TCP      66     48072 → 9001 [ACK] Seq=60001 Ack=11585 Win=2920 Len=0 TSval=8187173 TSecr=6553094
+277   0.000180       134.108.8.37          134.108.8.36          TCP      2482   9001 → 48072 [PSH, ACK] Seq=11585 Ack=60001 Win=2896 Len=2416 TSval=6553094 TSecr=8187173
+278   0.000026       134.108.8.36          134.108.8.37          TCP      66     48072 → 9001 [ACK] Seq=60001 Ack=14001 Win=2920 Len=0 TSval=8187174 TSecr=6553094
+279   0.000022       134.108.8.36          134.108.8.37          TCP      69     48072 → 9001 [PSH, ACK] Seq=60001 Ack=14001 Win=2920 Len=3 TSval=8187174 TSecr=6553094
+280   0.000017       134.108.8.36          134.108.8.37          TCP      66     48072 → 9001 [FIN, ACK] Seq=60004 Ack=14001 Win=2920 Len=0 TSval=8187174 TSecr=6553094
+281   0.000146       134.108.8.37          134.108.8.36          TCP      66     9001 → 48072 [ACK] Seq=14001 Ack=60004 Win=2896 Len=0 TSval=6553094 TSecr=8187174
+282   0.039033       134.108.8.37          134.108.8.36          TCP      66     9001 → 48072 [ACK] Seq=14001 Ack=60005 Win=2896 Len=0 TSval=6553134 TSecr=8187174
+287   0.961062       134.108.8.37          134.108.8.36          TCP      66     9001 → 48072 [FIN, ACK] Seq=14001 Ack=60005 Win=2896 Len=0 TSval=6554095 TSecr=8187174
+288   0.000038       134.108.8.36          134.108.8.37          TCP      66     48072 → 9001 [ACK] Seq=60005 Ack=14002 Win=2920 Len=0 TSval=8188174 TSecr=6554095
+```
+
+Daten von Client B empfangen und Verbindung beenden:
+```
+316   0.000215       134.108.8.37          134.108.8.36          TCP      2962   9001 → 48074 [PSH, ACK] Seq=8689 Ack=60001 Win=2896 Len=2896 TSval=6560566 TSecr=8194645
+317   0.000063       134.108.8.36          134.108.8.37          TCP      66     48074 → 9001 [ACK] Seq=60001 Ack=11585 Win=2920 Len=0 TSval=8194645 TSecr=6560566
+318   0.000218       134.108.8.37          134.108.8.36          TCP      2482   9001 → 48074 [PSH, ACK] Seq=11585 Ack=60001 Win=2896 Len=2416 TSval=6560566 TSecr=8194645
+319   0.000028       134.108.8.36          134.108.8.37          TCP      66     48074 → 9001 [ACK] Seq=60001 Ack=14001 Win=2920 Len=0 TSval=8194645 TSecr=6560566
+320   0.000029       134.108.8.36          134.108.8.37          TCP      69     48074 → 9001 [PSH, ACK] Seq=60001 Ack=14001 Win=2920 Len=3 TSval=8194645 TSecr=6560566
+321   0.000013       134.108.8.36          134.108.8.37          TCP      66     48074 → 9001 [FIN, ACK] Seq=60004 Ack=14001 Win=2920 Len=0 TSval=8194645 TSecr=6560566
+322   0.000141       134.108.8.37          134.108.8.36          TCP      66     9001 → 48074 [ACK] Seq=14001 Ack=60004 Win=2896 Len=0 TSval=6560566 TSecr=8194645
+323   0.039375       134.108.8.37          134.108.8.36          TCP      66     9001 → 48074 [ACK] Seq=14001 Ack=60005 Win=2896 Len=0 TSval=6560606 TSecr=8194645
+330   0.960711       134.108.8.37          134.108.8.36          TCP      66     9001 → 48074 [FIN, ACK] Seq=14001 Ack=60005 Win=2896 Len=0 TSval=6561566 TSecr=8194645
+331   0.000037       134.108.8.36          134.108.8.37          TCP      66     48074 → 9001 [ACK] Seq=60005 Ack=14002 Win=2920 Len=0 TSval=8195645 TSecr=6561566
 ```
 
 ## Aufgabe 1.1.3
