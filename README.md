@@ -1,22 +1,24 @@
-# RN1_Labor3.
+# RECHNERNETZE LABOR 3
 
-## 1.1
+## Aufgabe 1.1
 
-Wichtige Funktionsaufrufe des Server
+```
+Wichtige Funktionen vom Server
 
-TCP socket : 95: socket()  
-Registrierung : 113: bind()  
-Schließt den Socket : 116: close(ss)  
-Buffer : 127: listen()  
-Verbindungsaufbau : 150: accept()  
-Lese Buffer : 219: read()  
-Schreibe an Client :	 	270: write()  
-
+TCP socket : 			      95: socket()
+Registrierung : 		    113: bind()
+Schließt den Socket :   116: close(ss)
+Buffer : 			          127: listen()
+Verbindungsaufbau : 	  150: accept()
+Lese Buffer : 			    219: read()
+Schreibe an Client :	 	270: write()
 
 Wichtige Funktionen des Clients
 
-TCP socket : 112: socket()  
-Registrierung : 149: bind()  
-Schließt Socket : 155: close(cs)  
-Schreibe an Server :244: write()  
-Lese Buffer : 262: read()  
+TCP socket : 			      112: socket()
+Registrierung : 		    149: bind()
+Schließt Socket : 		  155: close(cs)
+Schreibe an Server :		244: write()
+Lese Buffer : 			    262: read()
+```
+
