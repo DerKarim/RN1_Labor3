@@ -29,6 +29,7 @@
 
 **Versuchsziel:**  
 Ausführen der vorgegebenen Programme auf zwei verschiedenen Rechnern. Dokumentation des Datentransfers im Netzwerk mithilfe von Wireshark. Herausfinden woran man erkennt, dass das Programm kein neben läufiger Server ist.  
+
 **Versuchsdurchführung:**  
 Man kann in der Konsolenausgabe sehr schön sehen, dass der Server sich immer nur mit einem Client verbindet und auch nur mit einem Client unterhält.
 
@@ -58,10 +59,13 @@ No.     Time           Source                Destination           Protocol Leng
 
 **Versuchsziel**  
 Es wird versucht mit zwei Clients zu einem nicht nebenläufigen Server eine Verbindung aufzubauen.  
+
 **Versuchsdurchführung**  
 Client A wird gestartet und sendet unverzüglich Daten zum Server. Anschließend wird in einem weiteren Fenster, ein zweiter Client B gestartet und Daten zum Server abgeschickt. Danach wird die Übertragung von A fortgesetzt und nach der Terminierung von A wird B fortgesetzt und beendet.  
+
 **Woran ist eindeutig erkennbar, dass der Server sequentiell arbeitet?**  
 Daran, dass Client B erst behandelt wird nachdem Client A die Verbindung beendet hat.  
+
 **Wo blockiert der Server?**  
 Wird durch die Funktion listen() blockiert, da nur eine Verbindung zugelassen ist.
 
@@ -317,13 +321,129 @@ CLIENT: Fehler bei bind, fester Port belegt: Address already in use
 ```
 
 
+## Aufgabe 1.5
+
+Der Nebenläufiger Server kann mehrere Clients zugleich bedienen. Dies kann man im Wireshark trace sehen, da Client B und Client A zugleich bedient werden.
+
+Client A:
+```
+kabeit00@itpc3105 tcp_v11_ws17]$ ./client_n 134.108.8.37
+CLIENT: Version: 1.3 ; Autor: H.Ws
+CLIENT: server_port = 9001
+CLIENT: Verbindung mit Server 134.108.8.37 auf Port 9001 aufgenommen
+
+CLIENT: Bitte beliebiges Zeichen eingeben, damit zum Server geschrieben wird!a
+CLIENT: Anzahl geschriebener Zeichen in write = 3000
+CLIENT: Nachricht vom Server:  Ihre IP-Adresse lautet '134.108.8.36'
+        Ihre Port-Nummer lautet '48376       ...
+CLIENT: Anzahl gelesener Zeichen in read = 2000
+CLIENT: Bitte beliebiges Zeichen eingeben, damit zum Server geschrieben wird!a
+CLIENT: Anzahl geschriebener Zeichen in write = 3000
+CLIENT: Nachricht vom Server:  Ihre IP-Adresse lautet '134.108.8.36'
+        Ihre Port-Nummer lautet '48376       ...
+CLIENT: Anzahl gelesener Zeichen in read = 2000
+```
+
+Client B:
+```
+[kabeit00@itpc3105 tcp_v11_ws17]$ ./client_n 134.108.8.37
+CLIENT: Version: 1.3 ; Autor: H.Ws
+CLIENT: server_port = 9001
+CLIENT: Verbindung mit Server 134.108.8.37 auf Port 9001 aufgenommen
+
+CLIENT: Bitte beliebiges Zeichen eingeben, damit zum Server geschrieben wird!k
+CLIENT: Anzahl geschriebener Zeichen in write = 3000
+CLIENT: Nachricht vom Server:  Ihre IP-Adresse lautet '134.108.8.36'
+        Ihre Port-Nummer lautet '48378       ...
+CLIENT: Anzahl gelesener Zeichen in read = 2000
+CLIENT: Bitte beliebiges Zeichen eingeben, damit zum Server geschrieben wird!a
+CLIENT: Anzahl geschriebener Zeichen in write = 3000
+CLIENT: Nachricht vom Server:  Ihre IP-Adresse lautet '134.108.8.36'
+        Ihre Port-Nummer lautet '48378       ...
+CLIENT: Anzahl gelesener Zeichen in read = 2000
+```
+
+Server:
+```
+Server:[kabeit00@itpc3105 tcp_v11_ws17]$ ./server_n
+SERVER_N: PID = 19209 : Nebenlaeufiger Server, Version: 1.3 ; Autor: H.Ws
+SERVER_N 17:42:33.5 > PID = 19209 : server_port = 9001
+
+SERVER_N 17:44:07.7 > PID = 19209 ; Parent-Socket = 3 : Mit Client 127.0.0.1 auf Port 33036 Verbindung aufgenommen
+
+SERVER_N 17:44:07.7 > PID = 19231 : Local socket  in child  = 4
+
+SERVER_N 17:44:12.1 > PID = 19209 ; Parent-Socket = 3 : Mit Client 127.0.0.1 auf Port 33038 Verbindung aufgenommen
+
+SERVER_N 17:44:12.1 > PID = 19235 : Local socket  in child  = 4
+
+SERVER_N 17:44:14.2 > PID = 19235 : clientport 33038 : Nachricht von Client: AabcdefghijklmnopqrstuvwxyzBabcdefghijkl ...
+SERVER_N 17:44:14.2 > PID = 19235 : clientport 33038 : Anzahl gelesener Zeichen in read = 3000
+SERVER_N 17:44:14.2 > PID = 19235 : clientport 33038 : Anzahl geschriebener Zeichen in write = 2000
+
+SERVER_N 17:44:16.5 > PID = 19231 : clientport 33036 : Nachricht von Client: AabcdefghijklmnopqrstuvwxyzBabcdefghijkl ...
+SERVER_N 17:44:16.5 > PID = 19231 : clientport 33036 : Anzahl gelesener Zeichen in read = 3000
+SERVER_N 17:44:16.5 > PID = 19231 : clientport 33036 : Anzahl geschriebener Zeichen in write = 2000
+
+SERVER_N 17:44:17.8 > PID = 19231 : clientport 33036 : Nachricht von Client: AabcdefghijklmnopqrstuvwxyzBabcdefghijkl ...
+SERVER_N 17:44:17.8 > PID = 19231 : clientport 33036 : Anzahl gelesener Zeichen in read = 3000
+SERVER_N 17:44:17.8 > PID = 19231 : clientport 33036 : Anzahl geschriebener Zeichen in write = 2000
+SERVER_N 17:44:18.8 > PID = 19231 : Verbindung mit Client 127.0.0.1 auf Port 33036 beendet
+
+SERVER_N 17:44:18.5 > PID = 19235 : clientport 33038 : Nachricht von Client: AabcdefghijklmnopqrstuvwxyzBabcdefghijkl ...
+SERVER_N 17:44:18.5 > PID = 19235 : clientport 33038 : Anzahl gelesener Zeichen in read = 3000
+SERVER_N 17:44:18.5 > PID = 19235 : clientport 33038 : Anzahl geschriebener Zeichen in write = 2000
+SERVER_N 17:44:19.5 > PID = 19235 : Verbindung mit Client 127.0.0.1 auf Port 33038 beendet
+```
+
+Wireshark trace:
+```
+2244    0.000000       134.108.8.36          134.108.8.37          TCP      74     48376 → 9001 [SYN] Seq=0 Win=14600 Len=0 MSS=1460 SACK_PERM=1 TSval=14868831 TSecr=0 WS=128
+2245    0.000199       134.108.8.37          134.108.8.36          TCP      74     9001 → 48376 [SYN, ACK] Seq=0 Ack=1 Win=14480 Len=0 MSS=1460 SACK_PERM=1 TSval=13234754 TSecr=14868831 WS=128
+2246    0.000043       134.108.8.36          134.108.8.37          TCP      66     48376 → 9001 [ACK] Seq=1 Ack=1 Win=14720 Len=0 TSval=14868832 TSecr=13234754
+2287    5.998053       134.108.8.36          134.108.8.37          TCP      74     48378 → 9001 [SYN] Seq=0 Win=14600 Len=0 MSS=1460 SACK_PERM=1 TSval=14874830 TSecr=0 WS=128
+2288    0.000221       134.108.8.37          134.108.8.36          TCP      74     9001 → 48378 [SYN, ACK] Seq=0 Ack=1 Win=14480 Len=0 MSS=1460 SACK_PERM=1 TSval=13240752 TSecr=14874830 WS=128
+2289    0.000032       134.108.8.36          134.108.8.37          TCP      66     48378 → 9001 [ACK] Seq=1 Ack=1 Win=14720 Len=0 TSval=14874830 TSecr=13240752
+2526    25.934500      134.108.8.36          134.108.8.37          TCP      2962   48378 → 9001 [ACK] Seq=1 Ack=1 Win=14720 Len=2896 TSval=14900765 TSecr=13240752
+2527    0.000019       134.108.8.36          134.108.8.37          TCP      170    48378 → 9001 [PSH, ACK] Seq=2897 Ack=1 Win=14720 Len=104 TSval=14900765 TSecr=13240752
+2528    0.000245       134.108.8.37          134.108.8.36          TCP      66     9001 → 48378 [ACK] Seq=1 Ack=3001 Win=17408 Len=0 TSval=13266687 TSecr=14900765
+2529    0.000213       134.108.8.37          134.108.8.36          TCP      2066   9001 → 48378 [PSH, ACK] Seq=1 Ack=3001 Win=17408 Len=2000 TSval=13266687 TSecr=14900765
+2530    0.000045       134.108.8.36          134.108.8.37          TCP      66     48378 → 9001 [ACK] Seq=3001 Ack=2001 Win=17536 Len=0 TSval=14900765 TSecr=13266687
+2592    10.327453      134.108.8.36          134.108.8.37          TCP      2962   48376 → 9001 [ACK] Seq=1 Ack=1 Win=14720 Len=2896 TSval=14911093 TSecr=13234754
+2593    0.000015       134.108.8.36          134.108.8.37          TCP      170    48376 → 9001 [PSH, ACK] Seq=2897 Ack=1 Win=14720 Len=104 TSval=14911093 TSecr=13234754
+2594    0.000252       134.108.8.37          134.108.8.36          TCP      66     9001 → 48376 [ACK] Seq=1 Ack=3001 Win=17408 Len=0 TSval=13277015 TSecr=14911093
+2595    0.000236       134.108.8.37          134.108.8.36          TCP      2066   9001 → 48376 [PSH, ACK] Seq=1 Ack=3001 Win=17408 Len=2000 TSval=13277015 TSecr=14911093
+2596    0.000062       134.108.8.36          134.108.8.37          TCP      66     48376 → 9001 [ACK] Seq=3001 Ack=2001 Win=17536 Len=0 TSval=14911093 TSecr=13277015
+2717    12.231667      134.108.8.36          134.108.8.37          TCP      2962   48376 → 9001 [ACK] Seq=3001 Ack=2001 Win=17536 Len=2896 TSval=14923325 TSecr=13277015
+2718    0.000016       134.108.8.36          134.108.8.37          TCP      170    48376 → 9001 [PSH, ACK] Seq=5897 Ack=2001 Win=17536 Len=104 TSval=14923325 TSecr=13277015
+2719    0.000315       134.108.8.37          134.108.8.36          TCP      66     9001 → 48376 [ACK] Seq=2001 Ack=6001 Win=20352 Len=0 TSval=13289247 TSecr=14923325
+2720    0.000112       134.108.8.37          134.108.8.36          TCP      2066   9001 → 48376 [PSH, ACK] Seq=2001 Ack=6001 Win=20352 Len=2000 TSval=13289247 TSecr=14923325
+2721    0.000064       134.108.8.36          134.108.8.37          TCP      66     48376 → 9001 [ACK] Seq=6001 Ack=4001 Win=20480 Len=0 TSval=14923325 TSecr=13289247
+2722    0.000040       134.108.8.36          134.108.8.37          TCP      69     48376 → 9001 [PSH, ACK] Seq=6001 Ack=4001 Win=20480 Len=3 TSval=14923325 TSecr=13289247
+2723    0.000022       134.108.8.36          134.108.8.37          TCP      66     48376 → 9001 [FIN, ACK] Seq=6004 Ack=4001 Win=20480 Len=0 TSval=14923325 TSecr=13289247
+2724    0.038853       134.108.8.37          134.108.8.36          TCP      66     9001 → 48376 [ACK] Seq=4001 Ack=6005 Win=20352 Len=0 TSval=13289287 TSecr=14923325
+2734    0.961439       134.108.8.37          134.108.8.36          TCP      66     9001 → 48376 [FIN, ACK] Seq=4001 Ack=6005 Win=20352 Len=0 TSval=13290248 TSecr=14923325
+2735    0.000036       134.108.8.36          134.108.8.37          TCP      66     48376 → 9001 [ACK] Seq=6005 Ack=4002 Win=20480 Len=0 TSval=14924326 TSecr=13290248
+2756    1.887127       134.108.8.36          134.108.8.37          TCP      2962   48378 → 9001 [ACK] Seq=3001 Ack=2001 Win=17536 Len=2896 TSval=14926213 TSecr=13266687
+2757    0.000021       134.108.8.36          134.108.8.37          TCP      170    48378 → 9001 [PSH, ACK] Seq=5897 Ack=2001 Win=17536 Len=104 TSval=14926213 TSecr=13266687
+2758    0.000223       134.108.8.37          134.108.8.36          TCP      66     9001 → 48378 [ACK] Seq=2001 Ack=6001 Win=20352 Len=0 TSval=13292135 TSecr=14926213
+2759    0.000168       134.108.8.37          134.108.8.36          TCP      2066   9001 → 48378 [PSH, ACK] Seq=2001 Ack=6001 Win=20352 Len=2000 TSval=13292135 TSecr=14926213
+2760    0.000046       134.108.8.36          134.108.8.37          TCP      66     48378 → 9001 [ACK] Seq=6001 Ack=4001 Win=20480 Len=0 TSval=14926213 TSecr=13292135
+2761    0.000038       134.108.8.36          134.108.8.37          TCP      69     48378 → 9001 [PSH, ACK] Seq=6001 Ack=4001 Win=20480 Len=3 TSval=14926213 TSecr=13292135
+2762    0.000016       134.108.8.36          134.108.8.37          TCP      66     48378 → 9001 [FIN, ACK] Seq=6004 Ack=4001 Win=20480 Len=0 TSval=14926213 TSecr=13292135
+2763    0.038880       134.108.8.37          134.108.8.36          TCP      66     9001 → 48378 [ACK] Seq=4001 Ack=6005 Win=20352 Len=0 TSval=13292175 TSecr=14926213
+2774    0.961381       134.108.8.37          134.108.8.36          TCP      66     9001 → 48378 [FIN, ACK] Seq=4001 Ack=6005 Win=20352 Len=0 TSval=13293136 TSecr=14926213
+2775    0.000035       134.108.8.36          134.108.8.37          TCP      66     48378 → 9001 [ACK] Seq=6005 Ack=4002 Win=20480 Len=0 TSval=14927214 TSecr=13293136
+```
+
+
 ## Aufgabe 2.1
 
 **Erklären Sie den Ablauf bei UDP:**  
 Bei UDP müssen die Ports mit gesendet werden, da UDP ein verbindugsloses Protokoll ist (kein
 SYN,ACK/FIN,ACK) wie bei TCP.
 
-**Was ist anders zu TCP?**
+**Was ist anders zu TCP?**  
 Bei UDP wird eine Checksummenprüfung gemacht, ob das Paket beim empfänger angekommen ist
 wird nicht überprüft. Im folgenden sieht man den Datenaustausch über UDP wobei im ersten Paket
 die Port Nummern übertragen werden und anschließend die Daten.
