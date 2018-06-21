@@ -24,56 +24,6 @@
 |Schreibe an Server   |244  |listen()   |
 |Lese Buffer          |262  |read()     |
 
-## Aufgabe 1.1.3
-
-## Versuchsziel: 
-Ein Server (nicht neben läufig) und ein Client, jedoch wird die Verbindung frühzeitig
-von der Clientseite beendet.
-
-## Versuchsdurchführung: 
-Der Server und der Client werden gestartet. Im Server beantworten wir
-zunächst die Frage nach Lesen mit „n“ und die anschließende Frage nach Schreiben mit „ j“. Im Client
-beantworten wir nun die Frage nach Schreiben mit „n“ und die anschließende Frage nach Lesen
-ebenfalls mit „n“.
-
-## Warum wird kein PDU mit FIN gesendet?
-Der Server schickt zwar Daten, welche auch im Buffer landen aber der Client lehnt jede
-reinkommende Nachricht vom Server ab. Wie man auch am Schluss sieht wird sogar die Bestätigung
-des RST Signals abgelehnt.
-
-## Wozu dient die RST-PDU?
-Damit der Server mitgeteilt bekommt das der Client nichts annehmen will.
-
-## Was passiert mit den Daten des Servers?
-Die befinden sich im Buffer werden aber nicht ausgelesen.
-
-```
-No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
-    552 55.401718      134.108.8.36          134.108.8.37          TCP      74     48088 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=8300020 TSecr=0 WS=1 0.047557
-
-553 55.401926      134.108.8.37          134.108.8.36          TCP      74     9001 → 48088 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=6665941 TSecr=8300020 WS=1 0.000208
-
-554 55.401970      134.108.8.36          134.108.8.37          TCP      66     48088 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=8300021 TSecr=6665941 0.000044
-
-739 77.220823      134.108.8.36          134.108.36.102        TCP      66     899 → 2049 [ACK] Seq=1369 Ack=1665 Win=501 Len=0 TSval=8321840 TSecr=3162258124 0.007013
-
-757 79.474738      134.108.8.36          134.108.34.11         TCP      112    56612 → 3128 [PSH, ACK] Seq=47 Ack=47 Win=146 Len=46 TSval=8324093 TSecr=335999351 0.687056
-
-758 79.479684      134.108.34.11         134.108.8.36          TCP      112    3128 → 56612 [PSH, ACK] Seq=47 Ack=93 Win=282 Len=46 TSval=336014102 TSecr=8324093 0.004946
-
-759 79.479714      134.108.8.36          134.108.34.11         TCP      66     56612 → 3128 [ACK] Seq=93 Ack=93 Win=146 Len=0 TSval=8324098 TSecr=336014102 0.000030
-
-779 85.167953      134.108.8.36          134.108.8.37          TCP      69     48088 → 9001 [PSH, ACK] Seq=1 Ack=14001 Win=2920 Len=3 TSval=8329787 TSecr=6685743 0.160108
-
-780 85.167983      134.108.8.36          134.108.8.37          TCP      66     48088 → 9001 [RST, ACK] Seq=4 Ack=14001 Win=2920 Len=0 TSval=8329787 TSecr=6685743 0.000030
-
-781 85.168191      134.108.8.37          134.108.8.36          TCP      66     9001 → 48088 [ACK] Seq=14001 Ack=4 Win=2896 Len=0 TSval=6695708 TSecr=8329787 0.000208
-
-782 85.168218      134.108.8.36          134.108.8.37          TCP      54     48088 → 9001 [RST] Seq=4 Win=0 Len=0                          0.000027
-
-```
-
-
 
 ### 1.1.1 Ein Server und ein Client
 
@@ -102,15 +52,54 @@ No.     Time           Source                Destination           Protocol Leng
 209   0.000165       134.108.8.37          134.108.8.36          TCP      66     54774 → 9001 [ACK] Seq=60005 Ack=14002 Win=2920 Len=0 TSval=4169449 TSecr=5803528
 ```
 
+## Aufgabe 1.1.3
+
+**Versuchsziel**  
+Ein Server (nicht neben läufig) und ein Client, jedoch wird die Verbindung frühzeitig
+von der Clientseite beendet.
+
+**Versuchsdurchführung**  
+Der Server und der Client werden gestartet. Im Server beantworten wir
+zunächst die Frage nach Lesen mit „n“ und die anschließende Frage nach Schreiben mit „ j“. Im Client
+beantworten wir nun die Frage nach Schreiben mit „n“ und die anschließende Frage nach Lesen
+ebenfalls mit „n“.
+
+**Warum wird kein PDU mit FIN gesendet?**  
+Der Server schickt zwar Daten, welche auch im Buffer landen aber der Client lehnt jede
+reinkommende Nachricht vom Server ab. Wie man auch am Schluss sieht wird sogar die Bestätigung
+des RST Signals abgelehnt.
+
+**Wozu dient die RST-PDU?**  
+Damit der Server mitgeteilt bekommt das der Client nichts annehmen will.
+
+**Was passiert mit den Daten des Servers?**  
+Die befinden sich im Buffer werden aber nicht ausgelesen.
+
+```
+No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
+552 55.401718      134.108.8.36          134.108.8.37          TCP      74     48088 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=8300020 TSecr=0 WS=1 0.047557
+553 55.401926      134.108.8.37          134.108.8.36          TCP      74     9001 → 48088 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=6665941 TSecr=8300020 WS=1 0.000208
+554 55.401970      134.108.8.36          134.108.8.37          TCP      66     48088 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=8300021 TSecr=6665941 0.000044
+739 77.220823      134.108.8.36          134.108.36.102        TCP      66     899 → 2049 [ACK] Seq=1369 Ack=1665 Win=501 Len=0 TSval=8321840 TSecr=3162258124 0.007013
+757 79.474738      134.108.8.36          134.108.34.11         TCP      112    56612 → 3128 [PSH, ACK] Seq=47 Ack=47 Win=146 Len=46 TSval=8324093 TSecr=335999351 0.687056
+758 79.479684      134.108.34.11         134.108.8.36          TCP      112    3128 → 56612 [PSH, ACK] Seq=47 Ack=93 Win=282 Len=46 TSval=336014102 TSecr=8324093 0.004946
+759 79.479714      134.108.8.36          134.108.34.11         TCP      66     56612 → 3128 [ACK] Seq=93 Ack=93 Win=146 Len=0 TSval=8324098 TSecr=336014102 0.000030
+779 85.167953      134.108.8.36          134.108.8.37          TCP      69     48088 → 9001 [PSH, ACK] Seq=1 Ack=14001 Win=2920 Len=3 TSval=8329787 TSecr=6685743 0.160108
+780 85.167983      134.108.8.36          134.108.8.37          TCP      66     48088 → 9001 [RST, ACK] Seq=4 Ack=14001 Win=2920 Len=0 TSval=8329787 TSecr=6685743 0.000030
+781 85.168191      134.108.8.37          134.108.8.36          TCP      66     9001 → 48088 [ACK] Seq=14001 Ack=4 Win=2896 Len=0 TSval=6695708 TSecr=8329787 0.000208
+782 85.168218      134.108.8.36          134.108.8.37          TCP      54     48088 → 9001 [RST] Seq=4 Win=0 Len=0                          0.000027
+```
+
+
 ## Aufgabe 1.2
 
 Filter: tcp.port == 9001 or icmp
 
-### Wie wurde die MSS berechnet?
+**Wie wurde die MSS berechnet?**  
 1500 Bytes - 20 Bytes [IP] - 20 Bytes [TCP] = 1460
 Da wir aber noch Tunneln, 1460 - 24 Bytes [Tunneling] = 1436 Bytes
 
-### Was sagt die ICMP Nachricht vom Router?
+**Was sagt die ICMP Nachricht vom Router?**  
 Der Router sendet eine ICMP Nachricht, dass eine Fragmentierung notwendig ist.
 
 ```
@@ -118,15 +107,15 @@ No.     Time           Source                Destination           Protocol Leng
 183	19.314823	134.108.11.254	134.108.8.36	ICMP	70	Destination unreachable (Fragmentation needed)	0.000623
 ```
 
-### Warum soll fragmentiert werden?
+**Warum soll fragmentiert werden?**  
 Da Ethernet max. 1500 Bytes pro Paket versenden kann.
 
-### Wie sieht TCP Segmentierung aus? Ist diese Segmentierung sinnvoll?
+**Wie sieht TCP Segmentierung aus? Ist diese Segmentierung sinnvoll?**  
 Es wird in zwei Datenpakete fragmentiert, einmal mit 1424 Bytes
 und einmal mit 24 Bytes, wodurch unnötig Datenverkehr produziert wird.
 
 
-Mit Fragmentierung:
+**Mit Fragmentierung:**
 
 ```
 No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
@@ -146,7 +135,7 @@ No.     Time           Source                Destination           Protocol Leng
 198	19.316245	134.108.8.36	134.108.190.10	TCP	1490	46962 → 9001 [ACK] Seq=5793 Ack=1 Win=2920 Len=1424 TSval=11507964 TSecr=2383627173	0.000027
 ```
 
-Ohne Fragmentierung:
+**Ohne Fragmentierung:**
 
 ```
 No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
@@ -196,11 +185,11 @@ No.     Time           Source                Destination           Protocol Leng
 
 ## Aufgabe 2.1
 
-### Erklären Sie den Ablauf bei UDP:
+**Erklären Sie den Ablauf bei UDP:**  
 Bei UDP müssen die Ports mit gesendet werden, da UDP ein verbindugsloses Protokoll ist (kein
 SYN,ACK/FIN,ACK) wie bei TCP.
 
-### Was ist anders zu TCP?
+**Was ist anders zu TCP?**
 Bei UDP wird eine Checksummenprüfung gemacht, ob das Paket beim empfänger angekommen ist
 wird nicht überprüft. Im folgenden sieht man den Datenaustausch über UDP wobei im ersten Paket
 die Port Nummern übertragen werden und anschließend die Daten.
@@ -224,7 +213,6 @@ Hier ist das gleiche zu beobachten. Als erstes werden die Port Nummern übertrag
 die Daten in diesem fall fragmentiert.
 
 
-
 ```
 No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
      74 12.783421      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd69) [Reassembled in #76] 0.480848
@@ -234,6 +222,5 @@ No.     Time           Source                Destination           Protocol Leng
      78 12.783461      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd6a) [Reassembled in #79] 0.000003
      79 12.783463      134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000002
 ```
-
 
 TODO : verbesserung notwenig
