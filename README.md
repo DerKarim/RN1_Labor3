@@ -54,6 +54,25 @@ No.     Time           Source                Destination           Protocol Leng
 209   0.000165       134.108.8.37          134.108.8.36          TCP      66     54774 → 9001 [ACK] Seq=60005 Ack=14002 Win=2920 Len=0 TSval=4169449 TSecr=5803528
 ```
 
+## Aufabe 1.1.2
+
+**Versuchsziel**  
+Es wird versucht mit zwei Clients zu einem nicht nebenläufigen Server eine Verbindung aufzubauen.  
+**Versuchsdurchführung**  
+Client A wird gestartet und sendet unverzüglich Daten zum Server. Anschließend wird in einem weiteren Fenster, ein zweiter Client B gestartet und Daten zum Server abgeschickt. Danach wird die Übertragung von A fortgesetzt und nach der Terminierung von A wird B fortgesetzt und beendet.  
+**Woran ist eindeutig erkennbar, dass der Server sequentiell arbeitet?**  
+Daran, dass Client B erst behandelt wird nachdem Client A die Verbindung beendet hat.  
+**Wo blockiert der Server?**  
+Wird durch die Funktion listen() blockiert, da nur eine Verbindung zugelassen ist.
+
+Three Way Handshake:
+```
+No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
+41    0.000000	134.108.8.36	134.108.8.37	TCP	74	48072 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=8168450 TSecr=0 WS=1
+42    0.000177	134.108.8.37	134.108.8.36	TCP	74	9001 → 48072 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=6534371 TSecr=8168450 WS=1
+43    0.000023	134.108.8.36	134.108.8.37	TCP	66	48072 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=8168450 TSecr=6534371
+```
+
 ## Aufgabe 1.1.3
 
 **Versuchsziel**  
