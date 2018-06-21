@@ -477,4 +477,15 @@ No.     Time           Source                Destination           Protocol Leng
 79    12.783463      134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000002
 ```
 
-TODO : verbesserung notwenig
+Time to live = 1
+Wenn TTL auf 1 gesetzt wird, so werden die Daten beim Router verworfen und der Router sendet ein
+Time to live exceeded zurück.
+```
+68    3.863807       134.108.8.36          39.135.17.38          ICMP     82     Destination unreachable (Host administratively prohibited)
+74    1.659959       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd69) [Reassembled in #76]
+75    0.000012       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd69) [Reassembled in #76]
+76    0.000003       134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000
+77    0.000022       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd6a) [Reassembled in #79]
+78    0.000003       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd6a) [Reassembled in #79]
+79    0.000002       134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000
+```

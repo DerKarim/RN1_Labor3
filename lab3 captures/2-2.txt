@@ -1,0 +1,12 @@
+     33 0.279284       134.108.8.36          134.108.34.11         TCP      66     56842 → 3128 [ACK] Seq=523 Ack=420 Win=501 Len=0 TSval=16461049 TSecr=338048339
+     53 4.132198       134.108.8.36          134.108.34.11         TCP      66     56848 → 3128 [ACK] Seq=1 Ack=61 Win=235 Len=0 TSval=16465181 TSecr=338049372
+     68 3.863807       134.108.8.36          39.135.17.38          ICMP     82     Destination unreachable (Host administratively prohibited)
+     74 1.659959       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd69) [Reassembled in #76]
+     75 0.000012       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd69) [Reassembled in #76]
+     76 0.000003       134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000
+     77 0.000022       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd6a) [Reassembled in #79]
+     78 0.000003       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd6a) [Reassembled in #79]
+     79 0.000002       134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000
+    146 9.349912       134.108.8.36          134.108.34.11         TCP      112    56970 → 3128 [PSH, ACK] Seq=1 Ack=1 Win=152 Len=46 TSval=16480055 TSecr=338038341
+    148 0.005520       134.108.8.36          134.108.34.11         TCP      66     56970 → 3128 [ACK] Seq=47 Ack=47 Win=152 Len=0 TSval=16480060 TSecr=338053092
+    157 1.736225       134.108.8.36          134.108.36.102        NFS      182    V3 ACCESS Call (Reply In 158), FH: 0x371fad99, [Check: RD LU MD XT DL]
