@@ -1,6 +1,9 @@
 # RECHNERNETZE LABOR 3
-sa
-@github/DerKarim
+
+Professor H. Wiese
+
+Author: Karim Dhifallah 753190  
+Author: Max Hausch 753645
 
 ## Aufgabe 1.1
 
