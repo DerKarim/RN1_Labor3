@@ -2,25 +2,28 @@
 
 ## Aufgabe 1.1
 
-```
-Wichtige Funktionen vom Server
+### Wichtige Funktionen vom Server
 
-TCP socket : 			      95: socket()
-Registrierung : 		    113: bind()
-Schließt den Socket :   116: close(ss)
-Buffer : 			          127: listen()
-Verbindungsaufbau : 	  150: accept()
-Lese Buffer : 			    219: read()
-Schreibe an Client :	 	270: write()
+|Beschreibung         |Line |Funktion   |
+|---------------------|-----|-----------|
+|TCP socket           |95   | socket()  |
+|Registrierung        |113  |bind()     |
+|Schließt den Socket  |116  |close(ss)  |
+|Buffer               |127  |listen()   |
+|Verbindungsaufbau    |150  |accept()   |
+|Lese Buffer          |219  |read()     |
+|Schreibe an Client   |270  |write()    |
 
-Wichtige Funktionen des Clients
+### Wichtige Funktionen des Clients
 
-TCP socket : 			      112: socket()
-Registrierung : 		    149: bind()
-Schließt Socket : 		  155: close(cs)
-Schreibe an Server :		244: write()
-Lese Buffer : 			    262: read()
-```
+|Beschreibung         |Line |Funktion   |
+|---------------------|-----|-----------|
+|TCP socket           |112  | socket()  |
+|Registrierung        |149  |bind()     |
+|Schließt den Socket  |155  |close(ss)  |
+|Schreibe an Server   |244  |listen()   |
+|Lese Buffer          |262  |read()     |
+
 
 ## Aufgabe 1.2
 
@@ -98,6 +101,3 @@ Ohne Fragmentierung:
 
 252	19.320884	134.108.8.36	134.108.190.10	TCP	1490	46962 → 9001 [ACK] Seq=23025 Ack=1 Win=2920 Len=1424 TSval=11507969 TSecr=2383627178	0.000015
 ```
-
-
-
