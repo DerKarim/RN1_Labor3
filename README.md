@@ -1,7 +1,5 @@
 # RECHNERNETZE LABOR 3
 
-
-
 ## Aufgabe 1.1
 
 ```
