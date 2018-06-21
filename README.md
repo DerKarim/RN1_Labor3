@@ -110,3 +110,37 @@ Der Client sendet [FIN, ACK] und bekommt immernoch Daten, bis der Server ein [AC
 620	67.008075	134.108.8.36	134.108.8.37	TCP	66	9001 → 55002 [FIN, ACK] Seq=14001 Ack=2 Win=2896 Len=0 TSval=13000008 TSecr=11364931	0.148259
 621	67.008275	134.108.8.37	134.108.8.36	TCP	66	55002 → 9001 [ACK] Seq=2 Ack=14002 Win=2920 Len=0 TSval=11365930 TSecr=13000008	0.000200
 ```
+
+
+
+## Aufgabe 2.1
+
+### Erklären Sie den Ablauf bei UDP:
+Bei UDP müssen die Ports mit gesendet werden, da UDP ein verbindugsloses Protokoll ist (kein
+SYN,ACK/FIN,ACK) wie bei TCP.
+
+### Was ist anders zu TCP?
+Bei UDP wird eine Checksummenprüfung gemacht, ob das Paket beim empfänger angekommen ist
+wird nicht überprüft. Im folgenden sieht man den Datenaustausch über UDP wobei im ersten Paket
+die Port Nummern übertragen werden und anschließend die Daten.
+
+```
+No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
+      1 0.000000       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd65) [Reassembled in #3] 0.000000
+
+2 0.000009       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd65) [Reassembled in #3] 0.000009
+
+3 0.000012       134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000003
+
+4 0.000032       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd66) [Reassembled in #6] 0.000020
+
+5 0.000036       134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd66) [Reassembled in #6] 0.000004
+
+6 0.000038       134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000002
+
+7 8.320396       134.108.8.37          134.108.8.36          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=35ff) [Reassembled in #9] 8.320358
+
+8 8.320413       134.108.8.37          134.108.8.36          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=35ff) [Reassembled in #9] 0.000017
+
+9 8.320417       134.108.8.37          134.108.8.36          UDP      82     9006 → 9005 Len=3000                                          0.000004
+```
