@@ -191,30 +191,26 @@ No.     Time           Source                Destination           Protocol Leng
 
 ## Aufgabe 1.2
 
-Filter: tcp.port == 9001 or icmp
+**Versuchsziel:**  
+Verbindung mit einem Rechner in einem anderen Subnetz. Da die MSS nicht ausreicht (zu klein) muss diese angepasst werden.  
 
-**Wie wurde die MSS berechnet?**  
-1500 Bytes - 20 Bytes [IP] - 20 Bytes [TCP] = 1460
-Da wir aber noch Tunneln, 1460 - 24 Bytes [Tunneling] = 1436 Bytes
+**Versuchsdurchführung:**  
+Ein Rechner aus dem Rechenzentrum verbindet sich auf den Rechner außerhalb des Subnetzes und startet dort den Server. Der Rechner innerhalb des Subnetzes ist unser Client. Dann werden die vorgegebenen Programme ausgeführt.  
+
+**Wie wurde die Maximum Segment Size berechnet?**  
+Die Headergröße besteht aus 20 Byte IP, 20 Byte TCP und 24 Byte Tunneling) somit bleiben: von 1500 Bytes - 20 Bytes - 20 Bytes - 24 Bytes = 1436 Bytes für die MSS.  
 
 **Was sagt die ICMP Nachricht vom Router?**  
-Der Router sendet eine ICMP Nachricht, dass eine Fragmentierung notwendig ist.
-
-```
-No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
-183	19.314823	134.108.11.254	134.108.8.36	ICMP	70	Destination unreachable (Fragmentation needed)	0.000623
-```
+Wie Wireshark trace zu sehen bei Frame No. 183 schickt der Router eine ICMP Nachricht mit der Info, dass eine Fragmentierung notwendig ist.  
 
 **Warum soll fragmentiert werden?**  
-Da Ethernet max. 1500 Bytes pro Paket versenden kann.
+Das Datenpaket muss fragmentiert werden, da Ethernet maximal 1500 Bytes pro Paket versenden kann (MTU).  
 
 **Wie sieht TCP Segmentierung aus? Ist diese Segmentierung sinnvoll?**  
-Es wird in zwei Datenpakete fragmentiert, einmal mit 1424 Bytes
-und einmal mit 24 Bytes, wodurch unnötig Datenverkehr produziert wird.
+Die TCP Segmentierung fragmentiert das Datenpaket in zwei Datenpakete, einmal mit 1424 Bytes und einmal mit 24 Bytes Daten, dies führt zu unnötigem Datenverkehr. Dies könnte man durch verringern der MSS um 24 Bytes auf dem Clientserver verbessern.
 
 
-**Mit Fragmentierung:**
-
+**Ohne Fragmentierung:**
 ```
 No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
 183	19.314823	134.108.11.254	134.108.8.36	ICMP	70	Destination unreachable (Fragmentation needed)	0.000623
@@ -233,8 +229,7 @@ No.     Time           Source                Destination           Protocol Leng
 198	19.316245	134.108.8.36	134.108.190.10	TCP	1490	46962 → 9001 [ACK] Seq=5793 Ack=1 Win=2920 Len=1424 TSval=11507964 TSecr=2383627173	0.000027
 ```
 
-**Ohne Fragmentierung:**
-
+**Mit Fragmentierung:**
 ```
 No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
 232	19.318494	134.108.8.36	134.108.190.10	TCP	1490	46962 → 9001 [PSH, ACK] Seq=15905 Ack=1 Win=2920 Len=1424 TSval=11507966 TSecr=2383627175	0.000012
