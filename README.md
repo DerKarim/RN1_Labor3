@@ -4,7 +4,7 @@
 
 ## Aufgabe 1.1
 
-
+´´´
 Wichtige Funktionen vom Server
 
 TCP socket : 			      95: socket()
@@ -22,5 +22,5 @@ Registrierung : 		    149: bind()
 Schließt Socket : 		  155: close(cs)
 Schreibe an Server :		244: write()
 Lese Buffer : 			    262: read()
-
+´´´
 
