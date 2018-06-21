@@ -34,9 +34,9 @@ Man kann in der Konsolenausgabe sehr schön sehen, dass der Server sich immer nu
 
 ```
 No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
-38	0.087676	134.108.8.37	134.108.8.36	TCP	74	54774 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=4155936 TSecr=0 WS=1
-39	0.000051	134.108.8.36	134.108.8.37	TCP	74	9001 → 54774 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=5790016 TSecr=4155936 WS=1
-40	0.000181	134.108.8.37	134.108.8.36	TCP	66	54774 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=4155936 TSecr=5790016
+38    0.087676	134.108.8.37	134.108.8.36	TCP	74	54774 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=4155936 TSecr=0 WS=1
+39    0.000051	134.108.8.36	134.108.8.37	TCP	74	9001 → 54774 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=5790016 TSecr=4155936 WS=1
+40    0.000181	134.108.8.37	134.108.8.36	TCP	66	54774 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=4155936 TSecr=5790016
 ...
 186   0.000006       134.108.8.36          134.108.8.37          TCP      1514   9001 → 54774 [PSH, ACK] Seq=7241 Ack=60001 Win=2896 Len=1448 TSval=5802527 TSecr=4168448
 187   0.000151       134.108.8.37          134.108.8.36          TCP      66     54774 → 9001 [ACK] Seq=60001 Ack=8689 Win=2920 Len=0 TSval=4168448 TSecr=5802527
@@ -217,12 +217,12 @@ die Daten in diesem Fall fragmentiert.
 
 ```
 No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
-74 12.783421      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd69) [Reassembled in #76] 0.480848
-75 12.783433      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd69) [Reassembled in #76] 0.000012
-76 12.783436      134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000003
-77 12.783458      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd6a) [Reassembled in #79] 0.000022
-78 12.783461      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd6a) [Reassembled in #79] 0.000003
-79 12.783463      134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000002
+74    12.783421      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd69) [Reassembled in #76] 0.480848
+75    12.783433      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd69) [Reassembled in #76] 0.000012
+76    12.783436      134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000003
+77    12.783458      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd6a) [Reassembled in #79] 0.000022
+78    12.783461      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd6a) [Reassembled in #79] 0.000003
+79    12.783463      134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000002
 ```
 
 TODO : verbesserung notwenig
