@@ -1,0 +1,8 @@
+[rn-lab3105@itpc9010 ~]$ CLIENT: Version: 1.3 ; Autor: H.Ws
+CLIENT: Server-Port = 9001
+CLIENT: addr = 0.0.0.0 ; Gebundener Port = 9002
+CLIENT: Fehler bei (bind), Return-Code = -1
+CLIENT: Fehler bei bind, fester Port belegt
+: Address already in use
+
+

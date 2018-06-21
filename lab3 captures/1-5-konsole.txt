@@ -1,0 +1,68 @@
+A:
+
+kabeit00@itpc3105 tcp_v11_ws17]$ ./client_n 134.108.8.37
+CLIENT: Version: 1.3 ; Autor: H.Ws
+CLIENT: server_port = 9001 
+CLIENT: Verbindung mit Server 134.108.8.37 auf Port 9001 aufgenommen
+
+CLIENT: Bitte beliebiges Zeichen eingeben, damit zum Server geschrieben wird!a
+CLIENT: Anzahl geschriebener Zeichen in write = 3000 
+CLIENT: Nachricht vom Server:  Ihre IP-Adresse lautet '134.108.8.36'
+        Ihre Port-Nummer lautet '48376       ... 
+CLIENT: Anzahl gelesener Zeichen in read = 2000 
+CLIENT: Bitte beliebiges Zeichen eingeben, damit zum Server geschrieben wird!a
+CLIENT: Anzahl geschriebener Zeichen in write = 3000 
+CLIENT: Nachricht vom Server:  Ihre IP-Adresse lautet '134.108.8.36'
+        Ihre Port-Nummer lautet '48376       ... 
+CLIENT: Anzahl gelesener Zeichen in read = 2000 
+
+B:
+
+[kabeit00@itpc3105 tcp_v11_ws17]$ ./client_n 134.108.8.37
+CLIENT: Version: 1.3 ; Autor: H.Ws
+CLIENT: server_port = 9001 
+CLIENT: Verbindung mit Server 134.108.8.37 auf Port 9001 aufgenommen
+
+CLIENT: Bitte beliebiges Zeichen eingeben, damit zum Server geschrieben wird!k
+CLIENT: Anzahl geschriebener Zeichen in write = 3000 
+CLIENT: Nachricht vom Server:  Ihre IP-Adresse lautet '134.108.8.36'
+        Ihre Port-Nummer lautet '48378       ... 
+CLIENT: Anzahl gelesener Zeichen in read = 2000 
+CLIENT: Bitte beliebiges Zeichen eingeben, damit zum Server geschrieben wird!a
+CLIENT: Anzahl geschriebener Zeichen in write = 3000 
+CLIENT: Nachricht vom Server:  Ihre IP-Adresse lautet '134.108.8.36'
+        Ihre Port-Nummer lautet '48378       ... 
+CLIENT: Anzahl gelesener Zeichen in read = 2000 
+
+Server:[kabeit00@itpc3105 tcp_v11_ws17]$ ./server_n
+SERVER_N: PID = 19209 : Nebenlaeufiger Server, Version: 1.3 ; Autor: H.Ws
+SERVER_N 17:42:33.5 > PID = 19209 : server_port = 9001 
+
+SERVER_N 17:44:07.7 > PID = 19209 ; Parent-Socket = 3 : Mit Client 127.0.0.1 auf Port 33036 Verbindung aufgenommen
+
+SERVER_N 17:44:07.7 > PID = 19231 : Local socket  in child  = 4
+
+SERVER_N 17:44:12.1 > PID = 19209 ; Parent-Socket = 3 : Mit Client 127.0.0.1 auf Port 33038 Verbindung aufgenommen
+
+SERVER_N 17:44:12.1 > PID = 19235 : Local socket  in child  = 4
+
+SERVER_N 17:44:14.2 > PID = 19235 : clientport 33038 : Nachricht von Client: AabcdefghijklmnopqrstuvwxyzBabcdefghijkl ...
+SERVER_N 17:44:14.2 > PID = 19235 : clientport 33038 : Anzahl gelesener Zeichen in read = 3000 
+SERVER_N 17:44:14.2 > PID = 19235 : clientport 33038 : Anzahl geschriebener Zeichen in write = 2000 
+
+SERVER_N 17:44:16.5 > PID = 19231 : clientport 33036 : Nachricht von Client: AabcdefghijklmnopqrstuvwxyzBabcdefghijkl ...
+SERVER_N 17:44:16.5 > PID = 19231 : clientport 33036 : Anzahl gelesener Zeichen in read = 3000 
+SERVER_N 17:44:16.5 > PID = 19231 : clientport 33036 : Anzahl geschriebener Zeichen in write = 2000 
+
+SERVER_N 17:44:17.8 > PID = 19231 : clientport 33036 : Nachricht von Client: AabcdefghijklmnopqrstuvwxyzBabcdefghijkl ...
+SERVER_N 17:44:17.8 > PID = 19231 : clientport 33036 : Anzahl gelesener Zeichen in read = 3000 
+SERVER_N 17:44:17.8 > PID = 19231 : clientport 33036 : Anzahl geschriebener Zeichen in write = 2000 
+SERVER_N 17:44:18.8 > PID = 19231 : Verbindung mit Client 127.0.0.1 auf Port 33036 beendet
+
+SERVER_N 17:44:18.5 > PID = 19235 : clientport 33038 : Nachricht von Client: AabcdefghijklmnopqrstuvwxyzBabcdefghijkl ...
+SERVER_N 17:44:18.5 > PID = 19235 : clientport 33038 : Anzahl gelesener Zeichen in read = 3000 
+SERVER_N 17:44:18.5 > PID = 19235 : clientport 33038 : Anzahl geschriebener Zeichen in write = 2000 
+SERVER_N 17:44:19.5 > PID = 19235 : Verbindung mit Client 127.0.0.1 auf Port 33038 beendet
+
+
+Nicht vergessen ip addresse zu ändern auf 134.108.8.36
