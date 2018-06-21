@@ -54,7 +54,7 @@ No.     Time           Source                Destination           Protocol Leng
 209   0.000165       134.108.8.37          134.108.8.36          TCP      66     54774 → 9001 [ACK] Seq=60005 Ack=14002 Win=2920 Len=0 TSval=4169449 TSecr=5803528
 ```
 
-## Aufabe 1.1.2
+### Aufabe 1.1.2
 
 **Versuchsziel**  
 Es wird versucht mit zwei Clients zu einem nicht nebenläufigen Server eine Verbindung aufzubauen.  
@@ -146,7 +146,7 @@ Daten von Client B empfangen und Verbindung beenden:
 331   0.000037       134.108.8.36          134.108.8.37          TCP      66     48074 → 9001 [ACK] Seq=60005 Ack=14002 Win=2920 Len=0 TSval=8195645 TSecr=6561566
 ```
 
-## Aufgabe 1.1.3
+### Aufgabe 1.1.3
 
 **Versuchsziel**  
 Ein Server (nicht neben läufig) und ein Client, jedoch wird die Verbindung frühzeitig
@@ -244,7 +244,7 @@ No.     Time           Source                Destination           Protocol Leng
 252	19.320884	134.108.8.36	134.108.190.10	TCP	1490	46962 → 9001 [ACK] Seq=23025 Ack=1 Win=2920 Len=1424 TSval=11507969 TSecr=2383627178	0.000015
 ```
 
-### Aufgabe 1.3
+## Aufgabe 1.3
 
 Da der Client die Verbindung vorzeitig beendet hat, haben wir einen half-closed status.
 Der Client sendet [FIN, ACK] und bekommt immernoch Daten, bis der Server ein [ACK] sendet und darauf ein weiteres [FIN, ACK] , [ACK] zum beenden vom Server bekommt.
@@ -275,6 +275,46 @@ No.     Time           Source                Destination           Protocol Leng
 621	67.008275	134.108.8.37	134.108.8.36	TCP	66	55002 → 9001 [ACK] Seq=2 Ack=14002 Win=2920 Len=0 TSval=11365930 TSecr=13000008	0.000200
 ```
 
+## Aufabe 1.4
+
+**Ohne Fehlerbehandlung**  
+Hier wird gezeigt, wie mit bind eine Portnummer, über die man senden/empfangen kann, an den Socket gebunden. Das bind liefert als Rückgabewert bei erfolgreichem binden eine 0, ansonsten -1.
+```
+929   0.000000       134.108.8.37          134.108.8.36          TCP      74     9002 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=11646580 TSecr=0 WS=1
+930   0.000054       134.108.8.36          134.108.8.37          TCP      74     9001 → 9002 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=13280659 TSecr=11646580 WS=1
+931   0.000204       134.108.8.37          134.108.8.36          TCP      66     9002 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=11646581 TSecr=13280659
+1186  38.375580      134.108.8.37          134.108.8.36          TCP      74     55008 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=11684956 TSecr=0 WS=1
+1187  0.000047       134.108.8.36          134.108.8.37          TCP      74     9001 → 55008 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=13319035 TSecr=11684956 WS=1
+1188  0.000190       134.108.8.37          134.108.8.36          TCP      66     55008 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=11684956 TSecr=13319035
+1440  23.796940      134.108.8.37          134.108.8.36          TCP      69     9002 → 9001 [PSH, ACK] Seq=1 Ack=1 Win=2920 Len=3 TSval=11708754 TSecr=13280659
+1441  0.000034       134.108.8.36          134.108.8.37          TCP      66     9001 → 9002 [ACK] Seq=1 Ack=4 Win=2896 Len=0 TSval=13342832 TSecr=11708754
+1442  0.000009       134.108.8.37          134.108.8.36          TCP      66     9002 → 9001 [FIN, ACK] Seq=4 Ack=1 Win=2920 Len=0 TSval=11708754 TSecr=13280659
+1444  0.039504       134.108.8.36          134.108.8.37          TCP      66     9001 → 9002 [ACK] Seq=1 Ack=5 Win=2896 Len=0 TSval=13342872 TSecr=11708754
+1518  7.840354       134.108.8.37          134.108.8.36          TCP      69     55008 → 9001 [PSH, ACK] Seq=1 Ack=1 Win=2920 Len=3 TSval=11716634 TSecr=13319035
+1519  0.000035       134.108.8.36          134.108.8.37          TCP      66     9001 → 55008 [ACK] Seq=1 Ack=4 Win=2896 Len=0 TSval=13350712 TSecr=11716634
+1520  0.000009       134.108.8.37          134.108.8.36          TCP      66     55008 → 9001 [FIN, ACK] Seq=4 Ack=1 Win=2920 Len=0 TSval=11716634 TSecr=13319035
+1521  0.039615       134.108.8.36          134.108.8.37          TCP      66     9001 → 55008 [ACK] Seq=1 Ack=5 Win=2896 Len=0 TSval=13350752 TSecr=11716634
+1775  23.666174      134.108.8.36          134.108.8.37          TCP      66     9001 → 9002 [FIN, ACK] Seq=1 Ack=5 Win=2896 Len=0 TSval=13374418 TSecr=11708754
+1776  0.000196       134.108.8.37          134.108.8.36          TCP      66     9002 → 9001 [ACK] Seq=5 Ack=2 Win=2920 Len=0 TSval=11740340 TSecr=13374418
+1865  8.703774       134.108.8.36          134.108.8.37          TCP      66     9001 → 55008 [FIN, ACK] Seq=1 Ack=5 Win=2896 Len=0 TSval=13383122 TSecr=11716634
+1866  0.000242       134.108.8.37          134.108.8.36          TCP      66     55008 → 9001 [ACK] Seq=5 Ack=2 Win=2920 Len=0 TSval=11749044 TSecr=13383122
+```
+
+**Mit Fehlerbehandlung**  
+```
+798   0.000000	134.108.8.37	134.108.8.36	TCP	74	9002 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=11895326 TSecr=0 WS=1
+799   0.000054	134.108.8.36	134.108.8.37	TCP	74	9001 → 9002 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=13529405 TSecr=11895326 WS=1
+800   0.000165	134.108.8.37	134.108.8.36	TCP	66	9002 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=11895326 TSecr=13529405
+```
+
+**Konsolenausgabe**
+```
+[rn-lab3105@itpc9010 ~]$ CLIENT: Version: 1.3 ; Autor: H.Ws  
+CLIENT: Server-Port = 9001  
+CLIENT: addr = 0.0.0.0 ; Gebundener Port = 9002  
+CLIENT: Fehler bei (bind), Return-Code = -1  
+CLIENT: Fehler bei bind, fester Port belegt: Address already in use
+```
 
 
 ## Aufgabe 2.1
@@ -303,7 +343,7 @@ No.     Time           Source                Destination           Protocol Leng
 
 ## Aufabe 2.2
 
-Hier ist das gleiche zu beobachten. Als erstes werden die Port Nummern übertragen und anschließen
+Hier ist das Gleiche zu beobachten. Als erstes werden die Port Nummern übertragen und anschließend
 die Daten in diesem Fall fragmentiert.
 
 
