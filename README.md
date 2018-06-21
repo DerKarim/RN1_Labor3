@@ -212,17 +212,17 @@ No.     Time           Source                Destination           Protocol Leng
 ## Aufabe 2.2
 
 Hier ist das gleiche zu beobachten. Als erstes werden die Port Nummern übertragen und anschließen
-die Daten in diesem fall fragmentiert.
+die Daten in diesem Fall fragmentiert.
 
 
 ```
 No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
-     74 12.783421      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd69) [Reassembled in #76] 0.480848
-     75 12.783433      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd69) [Reassembled in #76] 0.000012
-     76 12.783436      134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000003
-     77 12.783458      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd6a) [Reassembled in #79] 0.000022
-     78 12.783461      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd6a) [Reassembled in #79] 0.000003
-     79 12.783463      134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000002
+74 12.783421      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd69) [Reassembled in #76] 0.480848
+75 12.783433      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd69) [Reassembled in #76] 0.000012
+76 12.783436      134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000003
+77 12.783458      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=0, ID=fd6a) [Reassembled in #79] 0.000022
+78 12.783461      134.108.8.36          134.108.8.37          IPv4     1514   Fragmented IP protocol (proto=UDP 17, off=1480, ID=fd6a) [Reassembled in #79] 0.000003
+79 12.783463      134.108.8.36          134.108.8.37          UDP      82     9005 → 9006 Len=3000                                          0.000002
 ```
 
 TODO : verbesserung notwenig
