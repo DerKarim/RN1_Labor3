@@ -25,6 +25,33 @@
 |Lese Buffer          |262  |read()     |
 
 
+### 1.1.1 Ein Server und ein Client
+
+**Versuchsziel:** Ausführen der vorgegebenen Programme auf zwei verschiedenen Rechnern. Dokumentation des Datentransfers im Netzwerk mithilfe von Wireshark. Herausfinden woran man erkennt, dass das Programm kein neben läufiger Server ist.  
+**Versuchsdurchführung:** Man kann in der Konsolenausgabe sehr schön sehen, dass der Server sich immer nur mit einem Client verbindet und auch nur mit einem Client unterhält.
+
+```
+No.     Time           Source                Destination           Protocol Length Info                                                            Delta TIme
+38	0.087676	134.108.8.37	134.108.8.36	TCP	74	54774 → 9001 [SYN] Seq=0 Win=2920 Len=0 MSS=1460 SACK_PERM=1 TSval=4155936 TSecr=0 WS=1
+39	0.000051	134.108.8.36	134.108.8.37	TCP	74	9001 → 54774 [SYN, ACK] Seq=0 Ack=1 Win=2896 Len=0 MSS=1460 SACK_PERM=1 TSval=5790016 TSecr=4155936 WS=1
+40	0.000181	134.108.8.37	134.108.8.36	TCP	66	54774 → 9001 [ACK] Seq=1 Ack=1 Win=2920 Len=0 TSval=4155936 TSecr=5790016
+...
+186   0.000006       134.108.8.36          134.108.8.37          TCP      1514   9001 → 54774 [PSH, ACK] Seq=7241 Ack=60001 Win=2896 Len=1448 TSval=5802527 TSecr=4168448
+187   0.000151       134.108.8.37          134.108.8.36          TCP      66     54774 → 9001 [ACK] Seq=60001 Ack=8689 Win=2920 Len=0 TSval=4168448 TSecr=5802527
+188   0.000028       134.108.8.36          134.108.8.37          TCP      1514   9001 → 54774 [ACK] Seq=8689 Ack=60001 Win=2896 Len=1448 TSval=5802528 TSecr=4168448
+189   0.000006       134.108.8.36          134.108.8.37          TCP      1514   9001 → 54774 [PSH, ACK] Seq=10137 Ack=60001 Win=2896 Len=1448 TSval=5802528 TSecr=4168448
+190   0.000182       134.108.8.37          134.108.8.36          TCP      66     54774 → 9001 [ACK] Seq=60001 Ack=11585 Win=2920 Len=0 TSval=4168448 TSecr=5802528
+191   0.000042       134.108.8.36          134.108.8.37          TCP      1514   9001 → 54774 [ACK] Seq=11585 Ack=60001 Win=2896 Len=1448 TSval=5802528 TSecr=4168448
+192   0.000011       134.108.8.36          134.108.8.37          TCP      1034   9001 → 54774 [PSH, ACK] Seq=13033 Ack=60001 Win=2896 Len=968 TSval=5802528 TSecr=4168448
+193   0.000168       134.108.8.37          134.108.8.36          TCP      66     54774 → 9001 [ACK] Seq=60001 Ack=14001 Win=2920 Len=0 TSval=4168449 TSecr=5802528
+194   0.000018       134.108.8.37          134.108.8.36          TCP      69     54774 → 9001 [PSH, ACK] Seq=60001 Ack=14001 Win=2920 Len=3 TSval=4168449 TSecr=5802528
+195   0.000007       134.108.8.37          134.108.8.36          TCP      66     54774 → 9001 [FIN, ACK] Seq=60004 Ack=14001 Win=2920 Len=0 TSval=4168449 TSecr=5802528
+196   0.000032       134.108.8.36          134.108.8.37          TCP      66     9001 → 54774 [ACK] Seq=14001 Ack=60004 Win=2896 Len=0 TSval=5802528 TSecr=4168449
+197   0.039637       134.108.8.36          134.108.8.37          TCP      66     9001 → 54774 [ACK] Seq=14001 Ack=60005 Win=2896 Len=0 TSval=5802568 TSecr=4168449
+208   0.960503       134.108.8.36          134.108.8.37          TCP      66     9001 → 54774 [FIN, ACK] Seq=14001 Ack=60005 Win=2896 Len=0 TSval=5803528 TSecr=4168449
+209   0.000165       134.108.8.37          134.108.8.36          TCP      66     54774 → 9001 [ACK] Seq=60005 Ack=14002 Win=2920 Len=0 TSval=4169449 TSecr=5803528
+```
+
 ## Aufgabe 1.2
 
 Filter: tcp.port == 9001 or icmp
